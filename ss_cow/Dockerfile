@@ -7,4 +7,4 @@ COPY rc /root/.cow/
 RUN pip install shadowsocks==2.8.2
 COPY start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start.sh
-ENTRYPOINT ["/usr/local/bin/start.sh"]
+CMD ["/usr/local/bin/start.sh"]
