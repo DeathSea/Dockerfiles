@@ -1,2 +1,2 @@
-nohub ssserver -p 1280 -m aes-256-cfb -k inlineshadowsocks & > ss.log
-nohub cow & > cow.log
+ssserver -s 0.0.0.0 -p 1280 -m aes-256-cfb -k inlineshadowsocks &
+cow &
