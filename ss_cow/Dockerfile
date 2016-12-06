@@ -5,5 +5,6 @@ RUN apt-get update && \
 RUN export COW_INSTALLDIR=/usr/sbin && curl -L git.io/cow |bash
 COPY rc /root/.cow/
 RUN pip install shadowsocks==2.8.2
-RUN nohub ssserver -p 1280 -m aes-256-cfb -k inlineshadowsocks & > ss.log
-RUN nohub cow & > cow.log
+COPY start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/start.sh
+ENTRYPOINT ["/usr/local/bin/start.sh"]
