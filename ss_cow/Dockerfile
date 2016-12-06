@@ -1,4 +1,4 @@
-FROM debian:8.6
+FROM ubuntu:14.04.3
 MAINTAINER deathsea coder.deathsea@gmail.com
 ENV COW_INSTALLDIR ~
 RUN apt-get update & apt-get install curl python-pip python-m2crypto
