@@ -1,7 +1,7 @@
 FROM debian:8.6
 MAINTAINER deathsea coder.deathsea@gmail.com
 ENV COW_INSTALLDIR ~
-RUN apt-get update & apt-get install curl python-pip libnet1 libnet1-dev libpcap0.8 libpcap0.8-dev
+RUN apt-get update & apt-get install curl python-pip libnet1 libnet1-dev python-m2crypto
 RUN curl -L git.io/cow |bash
 RUN COPY rc ~/.cow/rc
 RUN pip install shadowsocks==2.8.2
