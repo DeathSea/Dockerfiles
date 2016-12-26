@@ -1,0 +1,59 @@
+#!/bin/bash
+# /etc/init.d/sserver
+#
+# chkconfig: 2345 95 05
+# desription: The Shadowsocks server
+# processname: ssserver
+# config: /etc/ss.conf
+prog="ssserver"
+config=/etc/ss.conf
+errlog=/var/log/ssserverlog/error.log
+rlog=/var/log/ssserverlog/run.log
+pidfile=/var/run/shadowsocks.pid
+. /etc/rc.d/init.d/functions
+start(){
+    echo -n $"start $prog:"
+    /usr/local/bin/ssserver -c $config -d start --pid-file $pidfile --log-file $rlog --workers 4  2>>$errlog &
+    RETVAL=$?
+    echo
+    [ "$RETVAL" = 0 ]
+    return $RETVAL
+}
+stop(){
+    echo -n $"stop $prog:"
+    /usr/local/bin/ssserver -d stop --pid-file $pidfile &
+    RETVAL=$?
+    echo
+    [ "$RETVAL" = 0 ]
+}
+reload(){
+    echo -n $"restart $prog:"
+    killproc $prog -HUP
+    RETVAL=$?
+    echo
+    [ "$RETVAL" = 0 ]
+    echo
+}
+case "$1" in
+    start)
+         start
+         ;;
+    stop)
+         stop
+         ;;
+    status)
+         status -p $pidfile
+         RETVAL=$?
+        ;;
+    restart)
+        start
+        stop
+        ;;
+    reload)
+        reload
+         ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|reload}"
+        RETVAL=1
+esac
+exit $RETVAL
